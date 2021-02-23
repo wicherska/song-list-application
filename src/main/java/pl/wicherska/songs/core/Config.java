@@ -9,10 +9,13 @@ import pl.wicherska.songs.repositories.XmlSongRepository;
 import pl.wicherska.songs.xml.XmlConverter;
 import pl.wicherska.songs.xml.XmlDataSource;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class Config {
     private static final Config INSTANCE =  new Config();
+    private static final List<String> csvPaths = new LinkedList<>();
+    private static final List<String> xmlPaths = new LinkedList<>();
     private CsvConverter csvConverter;
     private CsvDataSource csvDataSource;
     private CsvSongRepository csvSongRepository;
@@ -27,10 +30,21 @@ public class Config {
     private ReportGenerator reportGenerator;
 
 
-    private Config() {}
+    private Config() {
+    }
 
     public static Config getInstance(){
         return INSTANCE;
+    }
+
+    public static void setPaths(String[] paths){
+        for(String path: paths){
+            if(path.endsWith(".xml")){
+                xmlPaths.add(path);
+            } else if(path.endsWith(".csv")){
+                csvPaths.add(path);
+            }
+        }
     }
 
     public CsvConverter csvConverter(){
@@ -49,14 +63,14 @@ public class Config {
 
     public CsvSongRepository csvSongRepository(){
         if(csvSongRepository == null){
-            csvSongRepository = new CsvSongRepository(csvConverter(), csvDataSource(), "/home/agnieszka/Pulpit/JavaPrograms/Songs/src/main/resources/songs.csv");
+            csvSongRepository = new CsvSongRepository(csvConverter(), csvDataSource(), csvPaths);
         }
         return csvSongRepository;
     }
 
     public CsvWriter csvWriter(){
         if(csvWriter == null){
-            csvWriter = new CsvWriter(csvConverter(), csvDataSource(), "/home/agnieszka/Pulpit/JavaPrograms/Songs/src/main/resources/report.csv");
+            csvWriter = new CsvWriter(csvConverter(), csvDataSource(), "src/main/resources/report.csv");
         }
         return csvWriter;
     }
@@ -77,7 +91,7 @@ public class Config {
 
     public XmlSongRepository xmlSongRepository(){
         if(xmlSongRepository == null){
-            xmlSongRepository = new XmlSongRepository(xmlConverter(), xmlDataSource(), "src/main/resources/songs.xml");
+            xmlSongRepository = new XmlSongRepository(xmlConverter(), xmlDataSource(), xmlPaths);
         }
         return xmlSongRepository;
     }

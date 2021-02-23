@@ -20,7 +20,6 @@ public class CsvConverter implements Converter<String> {
     @Override
     public List<Song> mapDataSourceToListOfSongs(List<String> lines){
         return lines.stream()
-                .skip(1)
                 .map(this::mapLineToSong)
                 .collect(toList());
     }

@@ -23,7 +23,7 @@ class CsvConverterTest {
 
     @Test
     void shouldReturnListOfSongs() {
-        List<String> stringList = List.of("Title,Author,Album,Category,Votes",
+        List<String> stringList = List.of(
                 "Living in a Ghost Town,The Rolling Stones,Honk,Rock,10",
                 "You Should Be Sad,Halsey,Manic,Alternative,2",
                 "Imported,Jessie Reyez,Before Love Came to Kill Us,R&B,6");

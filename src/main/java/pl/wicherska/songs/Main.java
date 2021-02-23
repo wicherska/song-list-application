@@ -2,6 +2,8 @@ package pl.wicherska.songs;
 
 import pl.wicherska.songs.core.Config;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Scanner;
 
@@ -9,6 +11,18 @@ public class Main {
     private static Scanner SCANNER;
 
     public static void main(String[] args) {
+        if(args.length < 1){
+            System.out.println("Brak argumentów. Podaj ścieżkę/ścieżki do pliku/plików.");
+            return;
+        }
+        for (String fileName: args){
+            if(!Files.exists(Paths.get(fileName))){
+                System.out.println("\nNie znaleziono pliku: " + fileName);
+                return;
+            }
+        }
+        Config config = Config.getInstance();
+        Config.setPaths(args);
         SCANNER = new Scanner(System.in);
         String options = "Wybierz jedną z poniższych opcji podając jej numer\n" +
                 "1. Oddanie głosu na piosenkę\n" +
@@ -20,7 +34,7 @@ public class Main {
                 "7. Zrobienie i wypisanie raportu dla wszystkich piosenek\n" +
                 "8. Zrobienie i wypisanie raportu wg. kategorii\n" +
                 "9. Zakończenie pracy programu";
-        Config config = Config.getInstance();
+
 
         while(true){
             System.out.println(options);

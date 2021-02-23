@@ -1,6 +1,8 @@
 package pl.wicherska.songs.xml;
 
 import java.io.File;
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -19,11 +21,25 @@ public class XmlDataSource{
         return jaxbContext;
     }
 
+    public List<SongXmlRepresentation> readFromFiles(List<String> paths){
+        List<SongXmlRepresentation> songXmlList = new LinkedList<>();
+        for(String path: paths){
+            songXmlList.addAll(readFromFile(path));
+        }
+        return songXmlList;
+    }
 
-    public List<SongXmlRepresentation> readFromFile(String path) throws JAXBException {
-        Unmarshaller jaxbContextUnmarshaller = this.getJaxbInstance().createUnmarshaller();
-        SongsXmlRepresentation songsXmlRepresentationXml = (SongsXmlRepresentation) jaxbContextUnmarshaller.unmarshal(new File(path));
-        return songsXmlRepresentationXml.getSongsList();
+
+
+    private List<SongXmlRepresentation> readFromFile(String path){
+        try{
+            Unmarshaller jaxbContextUnmarshaller = this.getJaxbInstance().createUnmarshaller();
+            SongsXmlRepresentation songsXmlRepresentationXml = (SongsXmlRepresentation) jaxbContextUnmarshaller.unmarshal(new File(path));
+            return songsXmlRepresentationXml.getSongsList();
+        } catch(JAXBException e){
+            System.out.println(Arrays.toString(e.getStackTrace()));
+            return new SongsXmlRepresentation().getSongsList();
+        }
     }
 
     public void writeToFile(List<SongXmlRepresentation> songs, String path) throws JAXBException {
