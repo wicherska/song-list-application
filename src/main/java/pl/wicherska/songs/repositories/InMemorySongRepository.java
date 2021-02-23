@@ -14,16 +14,26 @@ public class InMemorySongRepository implements Repository {
 
     public InMemorySongRepository(List<Repository> repositoryList) {
         this.repositoryList = repositoryList;
-        this.songList = getListOfSongs();
+        this.songList = setInitialListOfSong();
     }
 
-    @Override
-    public List<Song> getListOfSongs() {
+    private List<Song> setInitialListOfSong(){
         List <Song> tempList = new LinkedList<>();
         for(Repository repository: repositoryList){
             tempList.addAll(repository.getListOfSongs());
         }
         return tempList;
+    }
+
+    @Override
+    public List<Song> getListOfSongs() {
+        return songList;
+    }
+
+    public void printAllSongs(){
+        for(int i=1; i<=songList.size(); i++){
+            System.out.println(String.valueOf(i) + ". " + songList.get(i-1));
+        }
     }
 
     public List<Song> getSongSortedByVotes(){
@@ -40,13 +50,21 @@ public class InMemorySongRepository implements Repository {
         songList.add(song);
     }
 
-    public void setVotesToZero(Song song){
-        song.setVotesToZero();
-    }
-
     public void setVotesToZeroForAllSongs(){
-        for (Song song: songList){
+        for (Song song : songList) {
             song.setVotesToZero();
         }
+    }
+
+    public void setVotesToZeroForChosenSong(int index){
+        songList.get(index).setVotesToZero();
+    }
+
+    public void voteForChosenSong(int index){
+        songList.get(index).voteForSong();
+    }
+
+    public Song getSong(int index){
+        return songList.get(index);
     }
 }

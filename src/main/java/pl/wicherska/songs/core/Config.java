@@ -1,16 +1,26 @@
 package pl.wicherska.songs.core;
 
-import pl.wicherska.songs.report.*;
+import pl.wicherska.songs.ApplicationRunner;
+import pl.wicherska.songs.generators.ConsoleReportGenerator;
+import pl.wicherska.songs.generators.CsvReportGenerator;
+import pl.wicherska.songs.generators.ReportGeneratorFactory;
+import pl.wicherska.songs.generators.XmlReportGenerator;
+import pl.wicherska.songs.handlers.*;
+import pl.wicherska.songs.search.*;
 import pl.wicherska.songs.repositories.InMemorySongRepository;
 import pl.wicherska.songs.csv.CsvConverter;
 import pl.wicherska.songs.csv.CsvDataSource;
 import pl.wicherska.songs.repositories.CsvSongRepository;
 import pl.wicherska.songs.repositories.XmlSongRepository;
+import pl.wicherska.songs.writers.ConsoleWriter;
+import pl.wicherska.songs.writers.CsvWriter;
+import pl.wicherska.songs.writers.XmlWriter;
 import pl.wicherska.songs.xml.XmlConverter;
 import pl.wicherska.songs.xml.XmlDataSource;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Config {
     private static final Config INSTANCE =  new Config();
@@ -27,7 +37,17 @@ public class Config {
     private InMemorySongRepository inMemorySongRepository;
     private SearchEngine searchEngine;
     private ConsoleWriter consoleWriter;
-    private ReportGenerator reportGenerator;
+    private CsvReportGenerator csvReportGenerator;
+    private XmlReportGenerator xmlReportGenerator;
+    private ConsoleReportGenerator consoleReportGenerator;
+    private ReportGeneratorFactory reportGeneratorFactory;
+    private AddingHandler addingHandler;
+    private CategorizingHandler categorizingHandler;
+    private ReportGeneratorHandler reportGeneratorHandler;
+    private VotingHandler votingHandler;
+    private ZeroingHandler zeroingHandler;
+    private ApplicationRunner applicationRunner;
+    private Scanner scanner;
 
 
     private Config() {
@@ -125,10 +145,82 @@ public class Config {
         return consoleWriter;
     }
 
-    public ReportGenerator reportGenerator(){
-        if(reportGenerator == null){
-            reportGenerator = new ReportGenerator(csvWriter(), xmlWriter(), consoleWriter(), searchEngine());
+    public CsvReportGenerator csvReportGenerator(){
+        if(csvReportGenerator == null){
+            csvReportGenerator = new CsvReportGenerator(csvWriter());
         }
-        return reportGenerator;
+        return csvReportGenerator;
     }
+
+    public XmlReportGenerator xmlReportGenerator(){
+        if(xmlReportGenerator == null){
+            xmlReportGenerator = new XmlReportGenerator(xmlWriter());
+        }
+        return xmlReportGenerator;
+    }
+
+    public ConsoleReportGenerator consoleReportGenerator(){
+        if(consoleReportGenerator == null){
+            consoleReportGenerator = new ConsoleReportGenerator(consoleWriter());
+        }
+        return consoleReportGenerator;
+    }
+
+    public ReportGeneratorFactory reportGeneratorFactory(){
+        if(reportGeneratorFactory == null){
+            reportGeneratorFactory = new ReportGeneratorFactory(csvReportGenerator(), xmlReportGenerator(), consoleReportGenerator());
+        }
+        return reportGeneratorFactory;
+    }
+
+    public Scanner scanner(){
+        if(scanner == null){
+            scanner = new Scanner(System.in);
+        }
+        return scanner;
+    }
+
+    public AddingHandler addingHandler(){
+        if(addingHandler == null){
+            addingHandler = new AddingHandler(scanner(), inMemorySongRepository());
+        }
+        return addingHandler;
+    }
+
+    public  CategorizingHandler categorizingHandler(){
+        if(categorizingHandler == null){
+            categorizingHandler = new CategorizingHandler(scanner(), reportGeneratorFactory());
+        }
+        return categorizingHandler;
+    }
+
+    public ReportGeneratorHandler reportGeneratorHandler(){
+        if(reportGeneratorHandler == null){
+            reportGeneratorHandler = new ReportGeneratorHandler(scanner(), reportGeneratorFactory(), searchEngine());
+        }
+        return reportGeneratorHandler;
+    }
+
+    public VotingHandler votingHandler(){
+        if(votingHandler == null){
+            votingHandler = new VotingHandler(scanner(), inMemorySongRepository());
+        }
+        return votingHandler;
+    }
+
+    public ZeroingHandler zeroingHandler(){
+        if(zeroingHandler == null){
+            zeroingHandler = new ZeroingHandler(scanner(), inMemorySongRepository());
+        }
+        return zeroingHandler;
+    }
+
+    public ApplicationRunner applicationRunner(){
+        if(applicationRunner == null){
+            applicationRunner = new ApplicationRunner(addingHandler(), categorizingHandler(),
+                    reportGeneratorHandler(), votingHandler(), zeroingHandler(), scanner());
+        }
+        return  applicationRunner;
+    }
+
 }

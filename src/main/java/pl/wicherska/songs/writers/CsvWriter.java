@@ -1,4 +1,4 @@
-package pl.wicherska.songs.report;
+package pl.wicherska.songs.writers;
 
 import pl.wicherska.songs.domain.Song;
 import pl.wicherska.songs.csv.CsvConverter;

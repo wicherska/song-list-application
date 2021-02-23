@@ -39,7 +39,9 @@ public class Song {
 
     public void voteForSong(){ votes++; }
 
-    public void setVotesToZero(){ votes=0;}
+    public void setVotesToZero() {
+        votes = 0;
+    }
 
     @Override
     public boolean equals(Object o) {

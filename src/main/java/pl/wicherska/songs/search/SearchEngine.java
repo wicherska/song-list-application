@@ -1,5 +1,6 @@
-package pl.wicherska.songs.report;
+package pl.wicherska.songs.search;
 
+import pl.wicherska.songs.domain.ReportType;
 import pl.wicherska.songs.domain.Song;
 import pl.wicherska.songs.repositories.InMemorySongRepository;
 
@@ -14,19 +15,34 @@ public class SearchEngine {
         this.inMemorySongRepository = inMemorySongRepository;
     }
 
-    public List<Song> getSongByCategory(){
+    public List<Song> getSongsForReportType(ReportType reportType){
+        switch (reportType){
+            case ALL:
+                return getAll();
+            case TOP3:
+                return getTop3();
+            case TOP10:
+                return getTop10();
+            case CATEGORY:
+                return getSongByCategory();
+            default:
+                throw new IllegalArgumentException("Not supported report type: " + reportType);
+        }
+    }
+
+    private List<Song> getSongByCategory(){
         return inMemorySongRepository.getSongSortedByCategory();
     }
 
-    public List<Song> getTop3(){
+    private List<Song> getTop3(){
         return inMemorySongRepository.getSongSortedByVotes().stream().limit(3).collect(toList());
     }
 
-    public List<Song> getTop10(){
+    private List<Song> getTop10(){
         return inMemorySongRepository.getSongSortedByVotes().stream().limit(10).collect(toList());
     }
 
-    public List<Song> getAll(){
+    private List<Song> getAll(){
         return inMemorySongRepository.getListOfSongs();
     }
 }
