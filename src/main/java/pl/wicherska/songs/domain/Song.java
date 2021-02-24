@@ -43,6 +43,8 @@ public class Song {
         votes = 0;
     }
 
+    public void addVotes(int votes){this.votes += votes;}
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

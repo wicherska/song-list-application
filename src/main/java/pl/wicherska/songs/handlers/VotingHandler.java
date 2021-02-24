@@ -1,17 +1,17 @@
 package pl.wicherska.songs.handlers;
 
 import pl.wicherska.songs.interfaces.Handler;
-import pl.wicherska.songs.repositories.InMemorySongRepository;
+import pl.wicherska.songs.services.SongService;
 
 import java.util.Scanner;
 
 public class VotingHandler implements Handler {
     private final Scanner scanner;
-    private final InMemorySongRepository inMemorySongRepository;
+    private final SongService songService;
 
-    public VotingHandler(Scanner scanner, InMemorySongRepository inMemorySongRepository) {
+    public VotingHandler(Scanner scanner, SongService songService) {
         this.scanner = scanner;
-        this.inMemorySongRepository = inMemorySongRepository;
+        this.songService = songService;
     }
 
     @Override
@@ -21,9 +21,9 @@ public class VotingHandler implements Handler {
 
     private void voteForChosen() {
         System.out.println("Podaj numer piosenki na którą chcesz zagłosować");
-        inMemorySongRepository.printAllSongs();
+        songService.printAllSongs();
         int index = scanner.nextInt() - 1;
-        inMemorySongRepository.voteForChosenSong(index);
-        System.out.println("Głos oddany na piosenkę: " + inMemorySongRepository.getSong(index).toString());
+        songService.voteForChosenSong(index);
+        System.out.println("Głos oddany na piosenkę: " + songService.getSong(index).toString());
     }
 }

@@ -1,17 +1,17 @@
 package pl.wicherska.songs.handlers;
 
 import pl.wicherska.songs.interfaces.Handler;
-import pl.wicherska.songs.repositories.InMemorySongRepository;
+import pl.wicherska.songs.services.SongService;
 
 import java.util.Scanner;
 
 public class ZeroingHandler implements Handler {
     Scanner scanner;
-    InMemorySongRepository inMemorySongRepository;
+    SongService songService;
 
-    public ZeroingHandler(Scanner scanner, InMemorySongRepository inMemorySongRepository) {
+    public ZeroingHandler(Scanner scanner, SongService songService) {
         this.scanner = scanner;
-        this.inMemorySongRepository = inMemorySongRepository;
+        this.songService = songService;
     }
 
     @Override
@@ -28,16 +28,16 @@ public class ZeroingHandler implements Handler {
     }
 
     private void zeroAll() {
-        inMemorySongRepository.setVotesToZeroForAllSongs();
+        songService.setVotesToZeroForAllSongs();
         System.out.println("Wszystkie głosy wyzerowane: ");
-        inMemorySongRepository.printAllSongs();
+        songService.printAllSongs();
     }
 
     private void zeroChosen() {
         System.out.println("Podaj numer piosenki, która ma mieć wyzerowane głosy");
-        inMemorySongRepository.printAllSongs();
+        songService.printAllSongs();
         int index = scanner.nextInt() - 1;
-        inMemorySongRepository.setVotesToZeroForChosenSong(index);
-        System.out.println("Głosy wyzerowane dla piosenki: " + inMemorySongRepository.getSong(index).toString());
+        songService.setVotesToZeroForChosenSong(index);
+        System.out.println("Głosy wyzerowane dla piosenki: " + songService.getSong(index).toString());
     }
 }

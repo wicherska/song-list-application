@@ -12,6 +12,7 @@ import pl.wicherska.songs.csv.CsvConverter;
 import pl.wicherska.songs.csv.CsvDataSource;
 import pl.wicherska.songs.repositories.CsvSongRepository;
 import pl.wicherska.songs.repositories.XmlSongRepository;
+import pl.wicherska.songs.services.SongService;
 import pl.wicherska.songs.writers.ConsoleWriter;
 import pl.wicherska.songs.writers.CsvWriter;
 import pl.wicherska.songs.writers.XmlWriter;
@@ -48,6 +49,7 @@ public class Config {
     private ZeroingHandler zeroingHandler;
     private ApplicationRunner applicationRunner;
     private Scanner scanner;
+    private SongService songService;
 
 
     private Config() {
@@ -133,7 +135,7 @@ public class Config {
 
     public SearchEngine searchEngine(){
         if(searchEngine == null){
-            searchEngine = new SearchEngine(inMemorySongRepository());
+            searchEngine = new SearchEngine(songService());
         }
         return searchEngine;
     }
@@ -203,14 +205,14 @@ public class Config {
 
     public VotingHandler votingHandler(){
         if(votingHandler == null){
-            votingHandler = new VotingHandler(scanner(), inMemorySongRepository());
+            votingHandler = new VotingHandler(scanner(), songService());
         }
         return votingHandler;
     }
 
     public ZeroingHandler zeroingHandler(){
         if(zeroingHandler == null){
-            zeroingHandler = new ZeroingHandler(scanner(), inMemorySongRepository());
+            zeroingHandler = new ZeroingHandler(scanner(), songService());
         }
         return zeroingHandler;
     }
@@ -221,6 +223,13 @@ public class Config {
                     reportGeneratorHandler(), votingHandler(), zeroingHandler(), scanner());
         }
         return  applicationRunner;
+    }
+
+    public SongService songService(){
+        if(songService == null){
+            songService = new SongService(inMemorySongRepository());
+        }
+        return  songService;
     }
 
 }

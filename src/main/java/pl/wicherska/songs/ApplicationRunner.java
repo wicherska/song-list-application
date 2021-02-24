@@ -10,13 +10,13 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class ApplicationRunner {
-    private Map<Case, Handler> handlers = new HashMap<>();
-    private AddingHandler addingHandler;
-    private CategorizingHandler categorizingHandler;
-    private ReportGeneratorHandler reportGeneratorHandler;
-    private VotingHandler votingHandler;
-    private ZeroingHandler zeroingHandler;
-    private Scanner scanner;
+    private final Map<Case, Handler> handlers = new HashMap<>();
+    private final AddingHandler addingHandler;
+    private final CategorizingHandler categorizingHandler;
+    private final ReportGeneratorHandler reportGeneratorHandler;
+    private final VotingHandler votingHandler;
+    private final ZeroingHandler zeroingHandler;
+    private final Scanner scanner;
 
     public ApplicationRunner(AddingHandler addingHandler,
                              CategorizingHandler categorizingHandler,

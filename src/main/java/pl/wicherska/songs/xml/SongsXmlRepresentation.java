@@ -1,6 +1,5 @@
 package pl.wicherska.songs.xml;
 
-import pl.wicherska.songs.xml.SongXmlRepresentation;
 
 import javax.xml.bind.annotation.*;
 import java.util.List;
