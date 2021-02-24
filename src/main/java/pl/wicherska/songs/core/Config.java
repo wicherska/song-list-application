@@ -191,7 +191,7 @@ public class Config {
 
     public  CategorizingHandler categorizingHandler(){
         if(categorizingHandler == null){
-            categorizingHandler = new CategorizingHandler(scanner(), reportGeneratorFactory());
+            categorizingHandler = new CategorizingHandler(scanner(), reportGeneratorFactory(), searchEngine());
         }
         return categorizingHandler;
     }

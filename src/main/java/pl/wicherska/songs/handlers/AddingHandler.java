@@ -20,25 +20,44 @@ public class AddingHandler implements Handler {
 
     @Override
     public void handle() {
-        System.out.println("Dodawanie piosenki");
-        System.out.println("Podaj tytuł");
-        String title = scanner.nextLine();
-        System.out.println("Podaj autora");
-        String author = scanner.nextLine();
-        System.out.println("Podaj album");
-        String album = scanner.nextLine();
-        System.out.println("Podaj kategorię, z dostępnych " + Arrays.toString(Category.values()));
-        Category category = Category.fromString(scanner.nextLine().toUpperCase());
-        System.out.println("Podaj inicjalną liczbę głosów");
-        int votes = scanner.nextInt();
+        String title = getTitle();
+        String author = getAuthor();
+        String album = getAlbum();
+        Category category = getCategory();
+        int votes = getVotes();
 
-        Song fromUser = new Song(title, author, album, category, votes);
+        Song songFromUser = new Song(title, author, album, category, votes);
         List<Song> listOfSongs = inMemorySongRepository.getListOfSongs();
-        if (!listOfSongs.contains(fromUser)){
-            inMemorySongRepository.addSong(fromUser);
-            System.out.println("Dodano piosenkę: " + fromUser.toString());
+        if (!listOfSongs.contains(songFromUser)){
+            inMemorySongRepository.addSong(songFromUser);
+            System.out.println("Dodano piosenkę: " + songFromUser.toString());
         } else{
             System.out.println("Piosenka już istnieje w bazie");
         }
+    }
+
+    private String getTitle(){
+        System.out.println("Podaj tytuł");
+        return scanner.nextLine();
+    }
+
+    private String getAuthor(){
+        System.out.println("Podaj autora");
+        return scanner.nextLine();
+    }
+
+    private String getAlbum(){
+        System.out.println("Podaj album");
+        return scanner.nextLine();
+    }
+
+    private Category getCategory(){
+        System.out.println("Podaj kategorię, z dostępnych " + Arrays.toString(Category.values()));
+        return Category.fromString(scanner.nextLine().toUpperCase());
+    }
+
+    private int getVotes(){
+        System.out.println("Podaj inicjalną liczbę głosów");
+        return scanner.nextInt();
     }
 }

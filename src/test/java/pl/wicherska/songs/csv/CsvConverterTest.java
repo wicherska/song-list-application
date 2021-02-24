@@ -14,7 +14,7 @@ import static pl.wicherska.songs.SongAssert.assertThatSong;
 import static pl.wicherska.songs.TestSongFactory.*;
 
 class CsvConverterTest {
-    CsvConverter csvConverter;
+    private CsvConverter csvConverter;
 
     @BeforeEach
     void setUp() {
@@ -63,7 +63,7 @@ class CsvConverterTest {
 
         assertAll(
                 () -> assertEquals("Title,Author,Album,Category,Votes", stringList.get(0)),
-                () -> assertEquals("Living in a Ghost Town,The Rolling Stones,Honk,Rock,10", stringList.get(1)),
+                () -> assertEquals("Living in a Ghost Town,The Rolling Stones,Honk,Rock,17", stringList.get(1)),
                 () -> assertEquals("You Should Be Sad,Halsey,Manic,Alternative,2", stringList.get(2)),
                 () -> assertEquals("Imported,Jessie Reyez,Before Love Came to Kill Us,R&B,6", stringList.get(3))
         );

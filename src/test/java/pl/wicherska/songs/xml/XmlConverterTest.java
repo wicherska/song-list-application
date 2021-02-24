@@ -14,7 +14,7 @@ import static pl.wicherska.songs.SongAssert.assertThatSong;
 import static pl.wicherska.songs.TestSongFactory.*;
 
 class XmlConverterTest {
-    XmlConverter xmlConverter;
+    private XmlConverter xmlConverter;
 
     @BeforeEach
     void setUp(){
@@ -28,7 +28,7 @@ class XmlConverterTest {
         songXml1.setAuthor("The Rolling Stones");
         songXml1.setAlbum("Honk");
         songXml1.setCategory(Category.ROCK);
-        songXml1.setVotes(10);
+        songXml1.setVotes(17);
 
         SongXmlRepresentation songXml2 = new SongXmlRepresentation();
         songXml2.setTitle("You Should Be Sad");
@@ -58,7 +58,7 @@ class XmlConverterTest {
                 .hasAuthor("The Rolling Stones")
                 .hasAlbum("Honk")
                 .hasCategory(Category.ROCK)
-                .hasVotes(10);
+                .hasVotes(17);
         assertThatSong(song2)
                 .hasTitle("You Should Be Sad")
                 .hasAuthor("Halsey")
@@ -86,7 +86,7 @@ class XmlConverterTest {
                         () -> assertEquals("The Rolling Stones", songXml1.getAuthor()),
                         () -> assertEquals("Honk", songXml1.getAlbum()),
                         () -> assertEquals(Category.ROCK, songXml1.getCategory()),
-                        () -> assertEquals(10, songXml1.getVotes())),
+                        () -> assertEquals(17, songXml1.getVotes())),
                 () -> assertAll(
                         () -> assertEquals("You Should Be Sad", songXml2.getTitle()),
                         () -> assertEquals("Halsey", songXml2.getAuthor()),
