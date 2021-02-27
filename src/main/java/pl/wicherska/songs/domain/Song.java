@@ -37,21 +37,26 @@ public class Song {
         return votes;
     }
 
-    public void voteForSong(){ votes++; }
+    public void voteForSong() {
+        votes++;
+    }
 
     public void setVotesToZero() {
         votes = 0;
     }
 
-    public void addVotes(int votes){this.votes += votes;}
+    public void addVotes(int votes) {
+        this.votes += votes;
+    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Song song = (Song) o;
-        return Objects.equals(title, song.title) && Objects.equals(author, song.author) && Objects.equals(album, song.album) && category == song.category;
+        return Objects.equals(title.toUpperCase(), song.title.toUpperCase()) && Objects.equals(author.toUpperCase(), song.author.toUpperCase()) && Objects.equals(album.toUpperCase(), song.album.toUpperCase()) && category == song.category;
     }
+
 
     @Override
     public int hashCode() {

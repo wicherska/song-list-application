@@ -5,9 +5,7 @@ import pl.wicherska.songs.domain.Song;
 import pl.wicherska.songs.interfaces.Handler;
 import pl.wicherska.songs.repositories.InMemorySongRepository;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class AddingHandler implements Handler {
     private final Scanner scanner;
@@ -20,9 +18,9 @@ public class AddingHandler implements Handler {
 
     @Override
     public void handle() {
-        String title = getTitle();
-        String author = getAuthor();
-        String album = getAlbum();
+        String title = getData("Podaj tytuł");
+        String author = getData("Podaj autora");
+        String album = getData("Podaj album");
         Category category = getCategory();
         int votes = getVotes();
 
@@ -36,28 +34,41 @@ public class AddingHandler implements Handler {
         }
     }
 
-    private String getTitle(){
-        System.out.println("Podaj tytuł");
-        return scanner.nextLine();
-    }
-
-    private String getAuthor(){
-        System.out.println("Podaj autora");
-        return scanner.nextLine();
-    }
-
-    private String getAlbum(){
-        System.out.println("Podaj album");
-        return scanner.nextLine();
+    private String getData(String message){
+        System.out.println(message);
+        String fromUser;
+        do{
+            fromUser=scanner.nextLine();
+        }while(fromUser.isBlank());
+        return fromUser;
     }
 
     private Category getCategory(){
         System.out.println("Podaj kategorię, z dostępnych " + Arrays.toString(Category.values()));
-        return Category.fromString(scanner.nextLine().toUpperCase());
+        Category category = Category.fromString(scanner.nextLine().toUpperCase());
+        while(category == null){
+            System.out.println("Niepoprawna kategoria. Podaj jedną z dostępnych: " + Arrays.toString(Category.values()));
+            category = Category.fromString(scanner.nextLine().toUpperCase());
+        }
+        return category;
     }
 
     private int getVotes(){
         System.out.println("Podaj inicjalną liczbę głosów");
-        return scanner.nextInt();
+        boolean flag = true;
+        int votes = 0;
+        while(flag){
+            try{
+                votes = Integer.parseInt(scanner.nextLine());
+                if(votes<=0){
+                    System.out.println("Podaj liczbę całkowitą dodatnią");
+                }else{
+                    flag=false;
+                }
+            }catch (NumberFormatException e){
+                System.out.println("Podaj liczbę całkowitą dodatnią");
+            }
+        }
+        return votes;
     }
 }
