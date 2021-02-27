@@ -46,7 +46,7 @@ public class Config {
     private CategorizingHandler categorizingHandler;
     private ReportGeneratorHandler reportGeneratorHandler;
     private VotingHandler votingHandler;
-    private ZeroingHandler zeroingHandler;
+    private ResettingHandler resettingHandler;
     private ApplicationRunner applicationRunner;
     private Scanner scanner;
     private SongService songService;
@@ -210,17 +210,17 @@ public class Config {
         return votingHandler;
     }
 
-    public ZeroingHandler zeroingHandler(){
-        if(zeroingHandler == null){
-            zeroingHandler = new ZeroingHandler(scanner(), songService());
+    public ResettingHandler resettingHandler(){
+        if(resettingHandler == null){
+            resettingHandler = new ResettingHandler(scanner(), songService());
         }
-        return zeroingHandler;
+        return resettingHandler;
     }
 
     public ApplicationRunner applicationRunner(){
         if(applicationRunner == null){
             applicationRunner = new ApplicationRunner(addingHandler(), categorizingHandler(),
-                    reportGeneratorHandler(), votingHandler(), zeroingHandler(), scanner());
+                    reportGeneratorHandler(), votingHandler(), resettingHandler(), scanner());
         }
         return  applicationRunner;
     }

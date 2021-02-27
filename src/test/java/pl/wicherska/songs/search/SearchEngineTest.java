@@ -15,8 +15,8 @@ import static org.mockito.Mockito.when;
 import static pl.wicherska.songs.TestSongFactory.*;
 
 class SearchEngineTest {
-    SearchEngine searchEngine;
-    SongService songService = mock(SongService.class);
+    private SearchEngine searchEngine;
+    private final SongService songService = mock(SongService.class);
 
     @BeforeEach
     void setUp(){

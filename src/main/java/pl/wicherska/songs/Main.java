@@ -9,12 +9,12 @@ public class Main {
 
     public static void main(String[] args) {
         if (args.length < 1) {
-            System.out.println("Brak argumentów. Podaj ścieżkę/ścieżki do pliku/plików.");
+            System.out.println("Lack of arguments. Please provide path/paths to file/files.");
             return;
         }
         for (String fileName : args) {
             if (!Files.exists(Paths.get(fileName))) {
-                System.out.println("\nNie znaleziono pliku: " + fileName);
+                System.out.println("\nFile not found: " + fileName);
                 return;
             }
         }

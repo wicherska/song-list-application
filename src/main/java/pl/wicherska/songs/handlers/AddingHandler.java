@@ -18,9 +18,9 @@ public class AddingHandler implements Handler {
 
     @Override
     public void handle() {
-        String title = getData("Podaj tytuł");
-        String author = getData("Podaj autora");
-        String album = getData("Podaj album");
+        String title = getData("Please provide title");
+        String author = getData("Please provide author");
+        String album = getData("Please provide album");
         Category category = getCategory();
         int votes = getVotes();
 
@@ -28,9 +28,9 @@ public class AddingHandler implements Handler {
         List<Song> listOfSongs = inMemorySongRepository.getListOfSongs();
         if (!listOfSongs.contains(songFromUser)){
             inMemorySongRepository.addSong(songFromUser);
-            System.out.println("Dodano piosenkę: " + songFromUser.toString());
+            System.out.println("Song has been added: " + songFromUser.toString());
         } else{
-            System.out.println("Piosenka już istnieje w bazie");
+            System.out.println("The song already exists in database");
         }
     }
 
@@ -44,29 +44,29 @@ public class AddingHandler implements Handler {
     }
 
     private Category getCategory(){
-        System.out.println("Podaj kategorię, z dostępnych " + Arrays.toString(Category.values()));
+        System.out.println("Please provide category from: " + Arrays.toString(Category.values()));
         Category category = Category.fromString(scanner.nextLine().toUpperCase());
         while(category == null){
-            System.out.println("Niepoprawna kategoria. Podaj jedną z dostępnych: " + Arrays.toString(Category.values()));
+            System.out.println("Incorrect category. Niepoprawna kategoria. Please provide category from: " + Arrays.toString(Category.values()));
             category = Category.fromString(scanner.nextLine().toUpperCase());
         }
         return category;
     }
 
     private int getVotes(){
-        System.out.println("Podaj inicjalną liczbę głosów");
+        System.out.println("Please provide number of votes");
         boolean flag = true;
         int votes = 0;
         while(flag){
             try{
                 votes = Integer.parseInt(scanner.nextLine());
                 if(votes<=0){
-                    System.out.println("Podaj liczbę całkowitą dodatnią");
+                    System.out.println("Please provide positive integer");
                 }else{
                     flag=false;
                 }
             }catch (NumberFormatException e){
-                System.out.println("Podaj liczbę całkowitą dodatnią");
+                System.out.println("Please provide positive integer");
             }
         }
         return votes;

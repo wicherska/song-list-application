@@ -32,7 +32,7 @@ public class CategorizingHandler implements Handler {
     }
 
     private ReportFormat getReportFormat(){
-        System.out.println("Podaj format raportu. Wybierz z " + Arrays.toString(ReportFormat.values()));
+        System.out.println("Please provide report format from: " + Arrays.toString(ReportFormat.values()));
         return ReportFormat.valueOf(scanner.nextLine().toUpperCase());
     }
 }

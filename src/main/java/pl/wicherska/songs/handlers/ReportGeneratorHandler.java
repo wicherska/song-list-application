@@ -33,12 +33,12 @@ public class ReportGeneratorHandler implements Handler {
     }
 
     private ReportFormat getReportFormat(){
-        System.out.println("Podaj format raportu. Wybierz z " + Arrays.toString(ReportFormat.values()));
+        System.out.println("Please provide report format from: " + Arrays.toString(ReportFormat.values()));
         return ReportFormat.valueOf(scanner.nextLine().toUpperCase());
     }
 
     private ReportType getReportType(){
-        System.out.println("Podaj typ raportu. Wybierz z " + Arrays.toString(ReportType.values()));
+        System.out.println("Please provide report type from: " + Arrays.toString(ReportType.values()));
         return ReportType.valueOf(scanner.nextLine().toUpperCase());
     }
 }

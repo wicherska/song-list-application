@@ -36,16 +36,16 @@ public class SongService {
         return songs;
     }
 
-    public void setVotesToZeroForAllSongs(){
+    public void resetVotesForAllSongs(){
         List<Song> songs = getAllSongs();
         for (Song song : songs) {
-            song.setVotesToZero();
+            song.resetVotes();
         }
     }
 
-    public void setVotesToZeroForChosenSong(int index){
+    public void resetVotesForChosenSong(int index){
         List<Song> songs = getAllSongs();
-        songs.get(index).setVotesToZero();
+        songs.get(index).resetVotes();
     }
 
     public void voteForChosenSong(int index){

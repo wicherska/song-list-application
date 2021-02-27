@@ -41,7 +41,7 @@ public class Song {
         votes++;
     }
 
-    public void setVotesToZero() {
+    public void resetVotes() {
         votes = 0;
     }
 

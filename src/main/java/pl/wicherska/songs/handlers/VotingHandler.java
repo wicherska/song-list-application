@@ -20,10 +20,10 @@ public class VotingHandler implements Handler {
     }
 
     private void voteForChosen() {
-        System.out.println("Podaj numer piosenki na którą chcesz zagłosować");
+        System.out.println("Please provide number of song");
         songService.printAllSongs();
         int index = scanner.nextInt() - 1;
         songService.voteForChosenSong(index);
-        System.out.println("Głos oddany na piosenkę: " + songService.getSong(index).toString());
+        System.out.println("You have voted on song: " + songService.getSong(index).toString());
     }
 }

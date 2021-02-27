@@ -15,20 +15,20 @@ public class ApplicationRunner {
     private final CategorizingHandler categorizingHandler;
     private final ReportGeneratorHandler reportGeneratorHandler;
     private final VotingHandler votingHandler;
-    private final ZeroingHandler zeroingHandler;
+    private final ResettingHandler resettingHandler;
     private final Scanner scanner;
 
     public ApplicationRunner(AddingHandler addingHandler,
                              CategorizingHandler categorizingHandler,
                              ReportGeneratorHandler reportGeneratorHandler,
                              VotingHandler votingHandler,
-                             ZeroingHandler zeroingHandler,
+                             ResettingHandler resettingHandler,
                              Scanner scanner) {
         this.addingHandler = addingHandler;
         this.categorizingHandler = categorizingHandler;
         this.reportGeneratorHandler = reportGeneratorHandler;
         this.votingHandler = votingHandler;
-        this.zeroingHandler = zeroingHandler;
+        this.resettingHandler = resettingHandler;
         this.scanner = scanner;
         setHandlers();
     }
@@ -38,11 +38,11 @@ public class ApplicationRunner {
         handlers.put(Case.CATEGORIZED, categorizingHandler);
         handlers.put(Case.RANKING, reportGeneratorHandler);
         handlers.put(Case.VOTE, votingHandler);
-        handlers.put(Case.ZERO, zeroingHandler);
+        handlers.put(Case.RESET, resettingHandler);
     }
 
     public void run(){
-        System.out.println("Wpisz jedną z opcji " + Arrays.toString(Case.values()));
+        System.out.println("Please provide one of the option " + Arrays.toString(Case.values()));
         handlers.get(Case.valueOf(scanner.nextLine().toUpperCase())).handle();
     }
 
