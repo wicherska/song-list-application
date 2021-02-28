@@ -1,6 +1,5 @@
 package pl.wicherska.songs.xml;
 
-import pl.wicherska.songs.domain.Category;
 
 import javax.xml.bind.annotation.*;
 
@@ -56,12 +55,6 @@ public class SongXmlRepresentation {
 
     @Override
     public String toString() {
-        return "SongXmlRepresentation{" +
-                "title='" + title + '\'' +
-                ", author='" + author + '\'' +
-                ", album='" + album + '\'' +
-                ", category=" + category +
-                ", votes=" + votes +
-                '}';
+        return title + ", " + author + ", " + album + ", " + category + ", " + votes;
     }
 }
