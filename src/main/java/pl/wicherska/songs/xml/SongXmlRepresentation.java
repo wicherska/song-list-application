@@ -11,7 +11,7 @@ public class SongXmlRepresentation {
     private String title;
     private String author;
     private String album;
-    private Category category;
+    private XmlCategory category;
     private int votes;
 
     public String getTitle() {
@@ -38,11 +38,11 @@ public class SongXmlRepresentation {
         this.album = album;
     }
 
-    public Category getCategory() {
+    public XmlCategory getXmlCategory() {
         return category;
     }
 
-    public void setCategory(Category category) {
+    public void setXmlCategory(XmlCategory category) {
         this.category = category;
     }
 

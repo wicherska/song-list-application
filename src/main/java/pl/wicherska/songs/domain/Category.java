@@ -1,11 +1,10 @@
 package pl.wicherska.songs.domain;
 
-import javax.xml.bind.annotation.XmlEnumValue;
 
 public enum Category {
-    @XmlEnumValue("Rock") ROCK("Rock"),
-    @XmlEnumValue("Alternative") ALTERNATIVE("Alternative"),
-    @XmlEnumValue("R&B") RANDB("R&B");
+    ROCK("Rock"),
+    ALTERNATIVE("Alternative"),
+    RANDB("R&B");
 
     private final String category;
 

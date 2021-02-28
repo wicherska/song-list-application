@@ -1,5 +1,6 @@
 package pl.wicherska.songs.xml;
 
+import pl.wicherska.songs.domain.Category;
 import pl.wicherska.songs.interfaces.Converter;
 import pl.wicherska.songs.domain.Song;
 
@@ -28,7 +29,7 @@ public class XmlConverter implements Converter<SongXmlRepresentation> {
                 songXml.getTitle(),
                 songXml.getAuthor(),
                 songXml.getAlbum(),
-                songXml.getCategory(),
+                Category.fromString(songXml.getXmlCategory().toString()),
                 songXml.getVotes());
     }
 
@@ -37,7 +38,7 @@ public class XmlConverter implements Converter<SongXmlRepresentation> {
         songXmlRepresentation.setTitle(song.getTitle());
         songXmlRepresentation.setAuthor(song.getAuthor());
         songXmlRepresentation.setAlbum(song.getAlbum());
-        songXmlRepresentation.setCategory(song.getCategory());
+        songXmlRepresentation.setXmlCategory(XmlCategory.fromString(song.getCategory().toString()));
         songXmlRepresentation.setVotes(song.getVotes());
         return songXmlRepresentation;
     }
