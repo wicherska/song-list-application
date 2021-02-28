@@ -3,27 +3,30 @@ package pl.wicherska.songs.generators;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import pl.wicherska.songs.writers.CsvWriter;
+import pl.wicherska.songs.domain.Song;
+import pl.wicherska.songs.writers.CsvReportWriter;
 
 import java.util.List;
 
-import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.mock;
 import static pl.wicherska.songs.TestSongFactory.rockSong;
 
 class CsvReportGeneratorTest {
+    private final CsvReportWriter csvWriter = mock(CsvReportWriter.class);
     private CsvReportGenerator csvReportGenerator;
-    private final CsvWriter csvWriter = mock(CsvWriter.class);
 
     @BeforeEach
-    void setUp(){
+    void setUp() {
         csvReportGenerator = new CsvReportGenerator(csvWriter);
     }
 
     @Test
-    void verifyThatCreateReportWasCalled(){
-        csvReportGenerator.generateReport(List.of(rockSong()));
-        Mockito.verify(csvWriter, Mockito.times(1)).createReport(anyList());
+    void verifyThatCreateReportWasCalled() {
+        List<Song> songsToReport = List.of(rockSong());
+
+        csvReportGenerator.generateReport(songsToReport);
+
+        Mockito.verify(csvWriter).createReport(songsToReport);
     }
 
 

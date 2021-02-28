@@ -3,27 +3,30 @@ package pl.wicherska.songs.generators;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import pl.wicherska.songs.writers.XmlWriter;
+import pl.wicherska.songs.domain.Song;
+import pl.wicherska.songs.writers.XmlReportWriter;
 
 import java.util.List;
 
-import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.mock;
 import static pl.wicherska.songs.TestSongFactory.rockSong;
 
 class XmlReportGeneratorTest {
+    private final XmlReportWriter xmlReportWriter = mock(XmlReportWriter.class);
     private XmlReportGenerator xmlReportGenerator;
-    private final XmlWriter xmlWriter = mock(XmlWriter.class);
 
     @BeforeEach
-    void setUp(){
-        xmlReportGenerator = new XmlReportGenerator(xmlWriter);
+    void setUp() {
+        xmlReportGenerator = new XmlReportGenerator(xmlReportWriter);
     }
 
     @Test
-    void verifyThatCreateReportWasCalled(){
-        xmlReportGenerator.generateReport(List.of(rockSong()));
-        Mockito.verify(xmlWriter, Mockito.times(1)).createReport(anyList());
+    void verifyThatCreateReportWasCalled() {
+        List<Song> songsToReport = List.of(rockSong());
+
+        xmlReportGenerator.generateReport(songsToReport);
+
+        Mockito.verify(xmlReportWriter).createReport(songsToReport);
     }
 
 }

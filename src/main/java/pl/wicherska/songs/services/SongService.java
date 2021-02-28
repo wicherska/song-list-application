@@ -1,60 +1,51 @@
 package pl.wicherska.songs.services;
 
 import pl.wicherska.songs.domain.Song;
-import pl.wicherska.songs.repositories.InMemorySongRepository;
+import pl.wicherska.songs.repositories.AggregatingSongRepository;
 
 import java.util.Comparator;
 import java.util.List;
 
 public class SongService {
-    private final InMemorySongRepository inMemorySongRepository;
+    private final AggregatingSongRepository aggregatingSongRepository;
 
-    public SongService(InMemorySongRepository inMemorySongRepository) {
-        this.inMemorySongRepository = inMemorySongRepository;
+    public SongService(AggregatingSongRepository aggregatingSongRepository) {
+        this.aggregatingSongRepository = aggregatingSongRepository;
     }
 
-    public List<Song> getAllSongs(){
-        return inMemorySongRepository.getListOfSongs();
+    public List<Song> getAllSongs() {
+        return aggregatingSongRepository.getSongs();
     }
 
-    public void printAllSongs(){
+    public List<Song> getSongsSortedByVotes() {
         List<Song> songs = getAllSongs();
-        for(int i=1; i<=songs.size(); i++){
-            System.out.println(i + ". " + songs.get(i-1));
-        }
-    }
-
-    public List<Song> getSongSortedByVotes(){
-        List<Song> songs = getAllSongs();
-        songs.sort((s1, s2) -> s2.getVotes() - s1.getVotes());
+        songs.sort(Comparator.comparingInt(Song::getVotes).reversed());
         return songs;
     }
 
-    public List<Song> getSongSortedByCategory(){
+    public List<Song> getSongsSortedByCategory() {
         List<Song> songs = getAllSongs();
-        songs.sort(Comparator.comparing(Song::getCategory));
+        Comparator<Song> comparator = Comparator.comparing(Song::getCategory);
+        comparator = comparator.thenComparing(Comparator.comparingInt(Song::getVotes).reversed());
+        songs.sort(comparator);
         return songs;
     }
 
-    public void resetVotesForAllSongs(){
-        List<Song> songs = getAllSongs();
-        for (Song song : songs) {
-            song.resetVotes();
+    public void resetVotesForAllSongs() {
+        getAllSongs().forEach(Song::resetVotes);
+    }
+
+    public void resetVotesForSong(Song song) {
+        song.resetVotes();
+    }
+
+    public void voteForSong(Song song) {
+        song.voteForSong();
+    }
+
+    public void printSongs(List<Song> songs) {
+        for (int i = 0; i < songs.size(); i++) {
+            System.out.println(i + ". " + songs.get(i));
         }
-    }
-
-    public void resetVotesForChosenSong(int index){
-        List<Song> songs = getAllSongs();
-        songs.get(index).resetVotes();
-    }
-
-    public void voteForChosenSong(int index){
-        List<Song> songs = getAllSongs();
-        songs.get(index).voteForSong();
-    }
-
-    public Song getSong(int index){
-        List<Song> songs = getAllSongs();
-        return songs.get(index);
     }
 }

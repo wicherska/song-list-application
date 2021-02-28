@@ -2,14 +2,14 @@ package pl.wicherska.songs.generators;
 
 import pl.wicherska.songs.domain.Song;
 import pl.wicherska.songs.interfaces.ReportGenerator;
-import pl.wicherska.songs.writers.CsvWriter;
+import pl.wicherska.songs.writers.CsvReportWriter;
 
 import java.util.List;
 
 public class CsvReportGenerator implements ReportGenerator {
-    private final CsvWriter csvWriter;
+    private final CsvReportWriter csvWriter;
 
-    public CsvReportGenerator(CsvWriter csvWriter) {
+    public CsvReportGenerator(CsvReportWriter csvWriter) {
         this.csvWriter = csvWriter;
     }
 

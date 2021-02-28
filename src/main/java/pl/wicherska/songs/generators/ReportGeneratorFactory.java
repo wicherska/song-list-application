@@ -14,8 +14,8 @@ public class ReportGeneratorFactory {
         this.consoleReportGenerator = consoleReportGenerator;
     }
 
-    public ReportGenerator forFormat(ReportFormat format){
-        switch (format){
+    public ReportGenerator forFormat(ReportFormat format) {
+        switch (format) {
             case CONSOLE:
                 return consoleReportGenerator;
             case CSV:
@@ -23,7 +23,7 @@ public class ReportGeneratorFactory {
             case XML:
                 return xmlReportGenerator;
             default:
-                throw new IllegalArgumentException("Not supported format: "+ format );
+                throw new IllegalArgumentException("Not supported format: " + format);
         }
     }
 }

@@ -1,14 +1,13 @@
 package pl.wicherska.songs.repositories;
 
+import pl.wicherska.songs.converters.CsvConverter;
 import pl.wicherska.songs.domain.Song;
-import pl.wicherska.songs.csv.CsvConverter;
-import pl.wicherska.songs.csv.CsvDataSource;
-import pl.wicherska.songs.interfaces.Repository;
-
+import pl.wicherska.songs.interfaces.SongRepository;
+import pl.wicherska.songs.sources.CsvDataSource;
 
 import java.util.List;
 
-public class CsvSongRepository implements Repository {
+public class CsvSongRepository implements SongRepository {
     private final CsvConverter csvConverter;
     private final CsvDataSource csvDataSource;
     private final List<String> paths;
@@ -20,7 +19,7 @@ public class CsvSongRepository implements Repository {
     }
 
     @Override
-    public List<Song> getListOfSongs() {
-        return csvConverter.mapDataSourceToListOfSongs(csvDataSource.readFromFiles(paths));
+    public List<Song> getSongs() {
+        return csvConverter.toSongs(csvDataSource.readFromFiles(paths));
     }
 }

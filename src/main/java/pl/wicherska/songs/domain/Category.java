@@ -4,7 +4,7 @@ package pl.wicherska.songs.domain;
 public enum Category {
     ROCK("Rock"),
     ALTERNATIVE("Alternative"),
-    RANDB("R&B");
+    RNB("R&B");
 
     private final String category;
 
@@ -22,8 +22,7 @@ public enum Category {
         return matchedCategory;
     }
 
-    @Override
-    public String toString() {
+    public String getCategoryName() {
         return category;
     }
 }

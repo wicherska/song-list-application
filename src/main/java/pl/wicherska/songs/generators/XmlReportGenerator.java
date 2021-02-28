@@ -2,19 +2,19 @@ package pl.wicherska.songs.generators;
 
 import pl.wicherska.songs.domain.Song;
 import pl.wicherska.songs.interfaces.ReportGenerator;
-import pl.wicherska.songs.writers.XmlWriter;
+import pl.wicherska.songs.writers.XmlReportWriter;
 
 import java.util.List;
 
 public class XmlReportGenerator implements ReportGenerator {
-    private final XmlWriter xmlWriter;
+    private final XmlReportWriter xmlReportWriter;
 
-    public XmlReportGenerator(XmlWriter xmlWriter) {
-        this.xmlWriter = xmlWriter;
+    public XmlReportGenerator(XmlReportWriter xmlReportWriter) {
+        this.xmlReportWriter = xmlReportWriter;
     }
 
     @Override
     public void generateReport(List<Song> songs) {
-        xmlWriter.createReport(songs);
+        xmlReportWriter.createReport(songs);
     }
 }

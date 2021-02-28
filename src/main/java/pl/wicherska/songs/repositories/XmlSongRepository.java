@@ -1,14 +1,13 @@
 package pl.wicherska.songs.repositories;
 
+import pl.wicherska.songs.converters.XmlConverter;
 import pl.wicherska.songs.domain.Song;
-import pl.wicherska.songs.interfaces.Repository;
-import pl.wicherska.songs.xml.XmlConverter;
-import pl.wicherska.songs.xml.XmlDataSource;
-
+import pl.wicherska.songs.interfaces.SongRepository;
+import pl.wicherska.songs.sources.XmlDataSource;
 
 import java.util.List;
 
-public class XmlSongRepository implements Repository {
+public class XmlSongRepository implements SongRepository {
     private final XmlConverter xmlConverter;
     private final XmlDataSource xmlDataSource;
     private final List<String> paths;
@@ -20,7 +19,7 @@ public class XmlSongRepository implements Repository {
     }
 
     @Override
-    public List<Song> getListOfSongs() {
-        return xmlConverter.mapDataSourceToListOfSongs(xmlDataSource.readFromFiles(paths));
+    public List<Song> getSongs() {
+        return xmlConverter.toSongs(xmlDataSource.readFromFiles(paths));
     }
 }

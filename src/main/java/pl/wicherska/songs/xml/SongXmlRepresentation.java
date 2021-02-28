@@ -1,7 +1,11 @@
 package pl.wicherska.songs.xml;
 
 
-import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+import java.util.Objects;
 
 @XmlRootElement(name = "song")
 @XmlAccessorType(value = XmlAccessType.FIELD)
@@ -51,6 +55,19 @@ public class SongXmlRepresentation {
 
     public void setVotes(int votes) {
         this.votes = votes;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SongXmlRepresentation that = (SongXmlRepresentation) o;
+        return votes == that.votes && Objects.equals(title, that.title) && Objects.equals(author, that.author) && Objects.equals(album, that.album) && category == that.category;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, author, album, category, votes);
     }
 
     @Override

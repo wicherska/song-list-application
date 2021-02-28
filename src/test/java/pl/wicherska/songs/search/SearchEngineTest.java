@@ -6,64 +6,58 @@ import pl.wicherska.songs.domain.ReportType;
 import pl.wicherska.songs.domain.Song;
 import pl.wicherska.songs.services.SongService;
 
-import java.util.LinkedList;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static pl.wicherska.songs.TestSongFactory.*;
 
 class SearchEngineTest {
-    private SearchEngine searchEngine;
     private final SongService songService = mock(SongService.class);
+    private SearchEngine searchEngine;
+    private List<Song> songList;
 
     @BeforeEach
-    void setUp(){
+    void setUp() {
         searchEngine = new SearchEngine(songService);
+        songList = List.of(rockSong(), rockSong2(), rockSong3(), rockSong4(), alternativeSong(), alternativeSong2(),
+                alternativeSong3(), alternativeSong4(), rAndBSong(), rAndBSong2(), rAndBSong3());
     }
 
     @Test
-    void shouldReturnListOf3Songs(){
-        List<Song> songList = new LinkedList<>(List.of(rockSong(), rockSong2(), rockSong3(), rockSong4(), alternativeSong(), alternativeSong2(),
-                alternativeSong3(), alternativeSong4(), rAndBSong(), rAndBSong2(), rAndBSong3()));
-
-        when(songService.getSongSortedByVotes()).thenReturn(songList);
+    void shouldReturnListOf3Songs() {
+        when(songService.getSongsSortedByVotes()).thenReturn(songList);
 
         List<Song> songs = searchEngine.getSongsForReportType(ReportType.TOP3);
-        assertThat(songs).hasSize(3);
+
+        assertEquals(3, songs.size());
     }
 
     @Test
-    void shouldReturnListOf10Songs(){
-        List<Song> songList = new LinkedList<>(List.of(rockSong(), rockSong2(), rockSong3(), rockSong4(), alternativeSong(), alternativeSong2(),
-                alternativeSong3(), alternativeSong4(), rAndBSong(), rAndBSong2(), rAndBSong3()));
-
-        when(songService.getSongSortedByVotes()).thenReturn(songList);
+    void shouldReturnListOf10Songs() {
+        when(songService.getSongsSortedByVotes()).thenReturn(songList);
 
         List<Song> songs = searchEngine.getSongsForReportType(ReportType.TOP10);
-        assertThat(songs).hasSize(10);
+
+        assertEquals(10, songs.size());
     }
 
     @Test
-    void shouldReturnAllSongs(){
-        List<Song> songList = new LinkedList<>(List.of(rockSong(), rockSong2(), rockSong3(), rockSong4(), alternativeSong(), alternativeSong2(),
-                alternativeSong3(), alternativeSong4(), rAndBSong(), rAndBSong2(), rAndBSong3()));
-
-        when(songService.getAllSongs()).thenReturn(songList);
+    void shouldReturnAllSongs() {
+        when(songService.getSongsSortedByVotes()).thenReturn(songList);
 
         List<Song> songs = searchEngine.getSongsForReportType(ReportType.ALL);
-        assertThat(songs).hasSize(11);
+
+        assertEquals(songList.size(), songs.size());
     }
 
     @Test
-    void shouldReturnAllSongsByCategory(){
-        List<Song> songList = new LinkedList<>(List.of(rockSong(), rockSong2(), rockSong3(), rockSong4(), alternativeSong(), alternativeSong2(),
-                alternativeSong3(), alternativeSong4(), rAndBSong(), rAndBSong2(), rAndBSong3()));
-
-        when(songService.getSongSortedByCategory()).thenReturn(songList);
+    void shouldReturnAllSongsByCategory() {
+        when(songService.getSongsSortedByCategory()).thenReturn(songList);
 
         List<Song> songs = searchEngine.getSongsForReportType(ReportType.CATEGORY);
-        assertThat(songs).hasSize(11);
+
+        assertEquals(songList.size(), songs.size());
     }
 }
