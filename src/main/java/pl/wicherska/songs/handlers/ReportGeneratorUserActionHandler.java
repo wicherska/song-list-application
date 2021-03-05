@@ -1,7 +1,7 @@
 package pl.wicherska.songs.handlers;
 
-import pl.wicherska.songs.domain.ReportFormat;
-import pl.wicherska.songs.domain.ReportType;
+import pl.wicherska.songs.generators.ReportFormat;
+import pl.wicherska.songs.generators.ReportType;
 import pl.wicherska.songs.domain.Song;
 import pl.wicherska.songs.generators.ReportGeneratorFactory;
 import pl.wicherska.songs.interfaces.ReportGenerator;

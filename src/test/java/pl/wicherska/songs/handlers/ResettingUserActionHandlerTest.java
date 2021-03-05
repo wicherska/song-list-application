@@ -3,7 +3,6 @@ package pl.wicherska.songs.handlers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import pl.wicherska.songs.domain.ResetOption;
 import pl.wicherska.songs.services.SongService;
 import pl.wicherska.songs.services.UserSongSelectionService;
 import pl.wicherska.songs.util.ScannerWrapper;

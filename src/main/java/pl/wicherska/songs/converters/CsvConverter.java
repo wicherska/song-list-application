@@ -25,8 +25,8 @@ public class CsvConverter extends AbstractConverter<String> {
 
     @Override
     protected Optional<Song> mapToSong(String line) {
-        String[] splitSongData = line.split(DELIMITER);
         try {
+            String[] splitSongData = line.split(DELIMITER);
             checkNumberOfFields(splitSongData);
             Song song = new Song(
                     validateString(splitSongData[INDEX_OF_TITLE]),

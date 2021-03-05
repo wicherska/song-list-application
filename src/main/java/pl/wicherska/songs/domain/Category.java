@@ -1,6 +1,8 @@
 package pl.wicherska.songs.domain;
 
 
+import java.util.stream.Stream;
+
 public enum Category {
     ROCK("Rock"),
     ALTERNATIVE("Alternative"),
@@ -13,13 +15,10 @@ public enum Category {
     }
 
     public static Category fromString(String text) {
-        Category matchedCategory = null;
-        for (Category cat : Category.values()) {
-            if (cat.category.equalsIgnoreCase(text)) {
-                matchedCategory = cat;
-            }
-        }
-        return matchedCategory;
+        return Stream.of(Category.values())
+                .filter(cat -> cat.category.equalsIgnoreCase(text))
+                .findFirst()
+                .orElse(null);
     }
 
     public String getCategoryName() {

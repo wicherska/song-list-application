@@ -1,6 +1,5 @@
 package pl.wicherska.songs.handlers;
 
-import pl.wicherska.songs.domain.ResetOption;
 import pl.wicherska.songs.domain.Song;
 import pl.wicherska.songs.interfaces.UserActionHandler;
 import pl.wicherska.songs.services.SongService;

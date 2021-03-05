@@ -1,4 +1,4 @@
-package pl.wicherska.songs.domain;
+package pl.wicherska.songs.generators;
 
 public enum ReportFormat {
     CSV,

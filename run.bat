@@ -1,2 +1,2 @@
 @echo off
-java -jar target\Songs-1.0-SNAPSHOT.jar %*
+java -jar target\songs-app-1.0.0-SNAPSHOT.jar %*

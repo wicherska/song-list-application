@@ -6,6 +6,8 @@ import pl.wicherska.songs.repositories.AggregatingSongRepository;
 import java.util.Comparator;
 import java.util.List;
 
+import static java.util.Comparator.comparingInt;
+
 public class SongService {
     private final AggregatingSongRepository aggregatingSongRepository;
 
@@ -19,14 +21,14 @@ public class SongService {
 
     public List<Song> getSongsSortedByVotes() {
         List<Song> songs = getAllSongs();
-        songs.sort(Comparator.comparingInt(Song::getVotes).reversed());
+        songs.sort(comparingInt(Song::getVotes).reversed());
         return songs;
     }
 
     public List<Song> getSongsSortedByCategory() {
         List<Song> songs = getAllSongs();
-        Comparator<Song> comparator = Comparator.comparing(Song::getCategory);
-        comparator = comparator.thenComparing(Comparator.comparingInt(Song::getVotes).reversed());
+        Comparator<Song> comparator = Comparator.comparing(Song::getCategory)
+                .thenComparing(comparingInt(Song::getVotes).reversed());
         songs.sort(comparator);
         return songs;
     }

@@ -7,7 +7,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import pl.wicherska.songs.ApplicationRunner;
 import pl.wicherska.songs.converters.CsvConverter;
 import pl.wicherska.songs.converters.XmlConverter;
-import pl.wicherska.songs.domain.UserAction;
+import pl.wicherska.songs.handlers.UserAction;
 import pl.wicherska.songs.generators.ConsoleReportGenerator;
 import pl.wicherska.songs.generators.CsvReportGenerator;
 import pl.wicherska.songs.generators.ReportGeneratorFactory;
@@ -51,7 +51,7 @@ class ConfigTest {
     @ParameterizedTest
     @MethodSource("stringArrayProvider")
     void shouldReturnFalseWhenPathsAreIncorrect(String[] args) {
-        boolean songFilePathSetCorrectly = Config.getInstance().isSongFilePathSetCorrectly(args);
+        boolean songFilePathSetCorrectly = Config.getInstance().setInitialSongFilesPaths(args);
 
         assertFalse(songFilePathSetCorrectly);
     }
@@ -61,7 +61,7 @@ class ConfigTest {
         String[] args = new String[]{"src/test/resources/test.csv",
                 "src/test/resources/test.xml"};
 
-        boolean songFilePathSetCorrectly = Config.getInstance().isSongFilePathSetCorrectly(args);
+        boolean songFilePathSetCorrectly = Config.getInstance().setInitialSongFilesPaths(args);
 
         assertTrue(songFilePathSetCorrectly);
     }

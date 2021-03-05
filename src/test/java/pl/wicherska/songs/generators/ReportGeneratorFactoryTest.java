@@ -2,7 +2,6 @@ package pl.wicherska.songs.generators;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pl.wicherska.songs.domain.ReportFormat;
 import pl.wicherska.songs.interfaces.ReportGenerator;
 
 import static org.assertj.core.api.Assertions.assertThat;

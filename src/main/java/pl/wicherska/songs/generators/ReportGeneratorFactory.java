@@ -1,6 +1,5 @@
 package pl.wicherska.songs.generators;
 
-import pl.wicherska.songs.domain.ReportFormat;
 import pl.wicherska.songs.interfaces.ReportGenerator;
 
 public class ReportGeneratorFactory {

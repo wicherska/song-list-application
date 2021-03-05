@@ -2,7 +2,7 @@ package pl.wicherska.songs.util;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pl.wicherska.songs.domain.UserAction;
+import pl.wicherska.songs.handlers.UserAction;
 
 import java.util.Scanner;
 

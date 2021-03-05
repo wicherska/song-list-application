@@ -6,7 +6,7 @@ public class Main {
 
     public static void main(String[] args) {
         Config config = Config.getInstance();
-        if (config.isSongFilePathSetCorrectly(args)) {
+        if (config.setInitialSongFilesPaths(args)) {
             config.applicationRunner().run();
         }
     }

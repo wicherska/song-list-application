@@ -17,7 +17,7 @@ public class UserSongSelectionService {
     public Song selectSong() {
         List<Song> allSongs = songService.getSongsSortedByVotes();
         songService.printSongs(allSongs);
-        System.out.println("Please provide number of song");
+        System.out.println("Please provide index of song");
         int index = scannerWrapper.nextNonNegativeIntInRange(allSongs.size());
         return allSongs.get(index);
     }

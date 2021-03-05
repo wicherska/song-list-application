@@ -1,6 +1,6 @@
 package pl.wicherska.songs;
 
-import pl.wicherska.songs.domain.UserAction;
+import pl.wicherska.songs.handlers.UserAction;
 import pl.wicherska.songs.interfaces.UserActionHandler;
 import pl.wicherska.songs.util.ScannerWrapper;
 

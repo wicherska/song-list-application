@@ -13,6 +13,7 @@ import static org.mockito.Mockito.when;
 import static pl.wicherska.songs.TestSongFactory.*;
 
 class UserSongSelectionServiceTest {
+    private static final int SELECTED_SONG_INDEX = 3;
     private final ScannerWrapper scannerWrapper = mock(ScannerWrapper.class);
     private final SongService songService = mock(SongService.class);
     private UserSongSelectionService userSongSelectionService;
@@ -28,11 +29,11 @@ class UserSongSelectionServiceTest {
     @Test
     void shouldReturnSelectedSong() {
         when(songService.getSongsSortedByVotes()).thenReturn(songList);
-        when(scannerWrapper.nextNonNegativeIntInRange(songList.size())).thenReturn(3);
+        when(scannerWrapper.nextNonNegativeIntInRange(songList.size())).thenReturn(SELECTED_SONG_INDEX);
 
         Song song = userSongSelectionService.selectSong();
 
-        assertEquals(songList.get(3), song);
+        assertEquals(songList.get(SELECTED_SONG_INDEX), song);
     }
 
 }

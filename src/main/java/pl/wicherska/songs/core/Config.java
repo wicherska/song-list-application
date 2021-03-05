@@ -3,15 +3,11 @@ package pl.wicherska.songs.core;
 import pl.wicherska.songs.ApplicationRunner;
 import pl.wicherska.songs.converters.CsvConverter;
 import pl.wicherska.songs.converters.XmlConverter;
-import pl.wicherska.songs.domain.UserAction;
 import pl.wicherska.songs.generators.ConsoleReportGenerator;
 import pl.wicherska.songs.generators.CsvReportGenerator;
 import pl.wicherska.songs.generators.ReportGeneratorFactory;
 import pl.wicherska.songs.generators.XmlReportGenerator;
-import pl.wicherska.songs.handlers.ReportGeneratorUserActionHandler;
-import pl.wicherska.songs.handlers.ResettingUserActionHandler;
-import pl.wicherska.songs.handlers.SongAddingUserActionHandler;
-import pl.wicherska.songs.handlers.VotingUserActionHandler;
+import pl.wicherska.songs.handlers.*;
 import pl.wicherska.songs.interfaces.UserActionHandler;
 import pl.wicherska.songs.repositories.AggregatingSongRepository;
 import pl.wicherska.songs.repositories.CsvSongRepository;
@@ -37,8 +33,12 @@ import static java.util.Map.entry;
 
 public class Config {
     private static final Config INSTANCE = new Config();
+    private static final String XML_REPORT_FILE_PATH = "report.xml";
+    private static final String CSV_REPORT_FILE_PATH = "report.csv";
+
     private final List<String> csvPaths = new LinkedList<>();
     private final List<String> xmlPaths = new LinkedList<>();
+
     private Map<UserAction, UserActionHandler> handlers;
     private CsvConverter csvConverter;
     private CsvDataSource csvDataSource;
@@ -72,28 +72,42 @@ public class Config {
         return INSTANCE;
     }
 
-    public boolean isSongFilePathSetCorrectly(String[] paths) {
-        if (paths.length < 1) {
-            System.out.println("No correct path found.");
-            return false;
-        }
+    public boolean setInitialSongFilesPaths(String[] paths) {
         for (String path : paths) {
-            if (!Files.exists(Paths.get(path))) {
+            try {
+                verifyFileExist(path);
+                classifyPath(path);
+            } catch (RuntimeException e){
                 System.out.println("\nFile not found: " + path);
                 return false;
-            } else {
-                if (path.endsWith(".xml")) {
-                    xmlPaths.add(path);
-                } else if (path.endsWith(".csv")) {
-                    csvPaths.add(path);
-                }
             }
         }
-        if (xmlPaths.size() == 0 && csvPaths.size() == 0) {
-            System.out.println("No correct path found.");
-            return false;
+        return isSetCorrectly();
+    }
+
+    private void classifyPath(String path){
+        if (path.endsWith(".xml")) {
+            xmlPaths.add(path);
+        } else if (path.endsWith(".csv")) {
+            csvPaths.add(path);
+        } else{
+            throw new RuntimeException();
         }
-        return true;
+    }
+
+    private boolean isSetCorrectly() {
+        if (xmlPaths.size() == 0 && csvPaths.size() == 0) {
+            System.out.println("No correct path found");
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    private void verifyFileExist(String path){
+        if (!Files.exists(Paths.get(path))) {
+            throw new RuntimeException();
+        }
     }
 
     Map<UserAction, UserActionHandler> userActionHandlers() {
@@ -131,7 +145,7 @@ public class Config {
 
     CsvReportWriter csvReportWriter() {
         if (csvReportWriter == null) {
-            csvReportWriter = new CsvReportWriter(csvConverter(), csvDataSource(), "report.csv");
+            csvReportWriter = new CsvReportWriter(csvConverter(), csvDataSource(), CSV_REPORT_FILE_PATH);
         }
         return csvReportWriter;
     }
@@ -159,7 +173,7 @@ public class Config {
 
     XmlReportWriter xmlReportWriter() {
         if (xmlReportWriter == null) {
-            xmlReportWriter = new XmlReportWriter(xmlConverter(), xmlDataSource(), "report.xml");
+            xmlReportWriter = new XmlReportWriter(xmlConverter(), xmlDataSource(), XML_REPORT_FILE_PATH);
         }
         return xmlReportWriter;
     }
