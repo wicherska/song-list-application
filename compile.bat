@@ -1,2 +1,3 @@
 @echo off
-mvn clean package
+
+./mvnw.cmd clean package
