@@ -49,11 +49,9 @@ public class Song {
         this.votes += votes;
     }
 
-    //todo
     /**
      * Votes are not included in equals and hashCode methods.
      */
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

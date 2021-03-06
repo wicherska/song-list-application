@@ -17,12 +17,11 @@ class AggregatingSongRepositoryTest {
     private final SongRepository songRepository = mock(SongRepository.class);
     private AggregatingSongRepository aggregatingSongRepository;
 
+    /**
+     * Mock's configuration is placed in setUp method because mock is called during creation of AggregatingSongRepository instance.
+     */
     @BeforeEach
     void setUp() {
-        //todo
-        /**
-         * Mock's configuration is placed in setUp method because mock is called here.
-         */
         when(songRepository.getSongs()).thenReturn(List.of(rockSong4()));
         when(songRepository.getSongs()).thenReturn(List.of(rockSong4(), rAndBSong2()));
         aggregatingSongRepository = new AggregatingSongRepository(List.of(songRepository, songRepository));

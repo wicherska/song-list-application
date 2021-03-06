@@ -5,7 +5,6 @@ import pl.wicherska.songs.domain.Song;
 import javax.xml.bind.annotation.XmlEnumValue;
 
 public enum XmlCategory {
-    //todo
     /**
      * Enum created to keep all xml related annotations in one directory.
      */

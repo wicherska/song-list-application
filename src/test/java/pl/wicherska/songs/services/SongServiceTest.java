@@ -21,13 +21,12 @@ class SongServiceTest {
     private List<Song> songList;
     private List<Song> expectedSongList;
 
+    /**
+     * Constructor 'ArrayList<>(List.of()) is not mistake. List should be mutable and initialised with values.
+     */
     @BeforeEach
     void setUp() {
         songService = new SongService(aggregatingSongRepository);
-        //todo
-        /**
-         * Constructor 'ArrayList<>(List.of()) is not mistake. List should be mutable and initialised with values.
-         */
         songList = new ArrayList<>(List.of(rockSong(), rockSong2(), rockSong3(), rockSong4(), alternativeSong(), alternativeSong2(),
                 alternativeSong3(), alternativeSong4(), rAndBSong(), rAndBSong2(), rAndBSong3()));
         expectedSongList = new ArrayList<>(List.of(rockSong(), rockSong2(), rockSong3(), rockSong4(), alternativeSong(), alternativeSong2(),
