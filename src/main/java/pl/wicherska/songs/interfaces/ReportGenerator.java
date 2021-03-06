@@ -4,11 +4,12 @@ import pl.wicherska.songs.domain.Song;
 
 import java.util.List;
 
-//todo
-
-/**
- * This is a Javadoc
- */
 public interface ReportGenerator {
+    //todo
+    /**
+     * Implementation should generate report.
+     * @param songs - List of songs to report
+     *
+     */
     void generateReport(List<Song> songs);
 }

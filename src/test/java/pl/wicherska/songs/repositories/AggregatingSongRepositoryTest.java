@@ -21,7 +21,7 @@ class AggregatingSongRepositoryTest {
     void setUp() {
         //todo
         /**
-         * This is a Javadoc
+         * Mock's configuration is placed in setUp method because mock is called here.
          */
         when(songRepository.getSongs()).thenReturn(List.of(rockSong4()));
         when(songRepository.getSongs()).thenReturn(List.of(rockSong4(), rAndBSong2()));

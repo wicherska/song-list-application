@@ -45,10 +45,6 @@ public class ScannerWrapper {
         return number;
     }
 
-    //todo comment
-    /**
-     * This is a Javadoc
-     */
     public int nextNonNegativeIntInRange(int range) {
         int number;
         while (true) {

@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlEnumValue;
 public enum XmlCategory {
     //todo
     /**
-     * This is a Javadoc
+     * Enum created to keep all xml related annotations in one directory.
      */
 
     @XmlEnumValue("Rock") ROCK("Rock"),

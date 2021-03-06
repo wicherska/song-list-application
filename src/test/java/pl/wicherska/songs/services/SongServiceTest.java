@@ -26,7 +26,7 @@ class SongServiceTest {
         songService = new SongService(aggregatingSongRepository);
         //todo
         /**
-         * This is a Javadoc
+         * Constructor 'ArrayList<>(List.of()) is not mistake. List should be mutable and initialised with values.
          */
         songList = new ArrayList<>(List.of(rockSong(), rockSong2(), rockSong3(), rockSong4(), alternativeSong(), alternativeSong2(),
                 alternativeSong3(), alternativeSong4(), rAndBSong(), rAndBSong2(), rAndBSong3()));

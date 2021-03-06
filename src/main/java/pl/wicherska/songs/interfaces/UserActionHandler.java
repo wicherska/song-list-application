@@ -1,9 +1,10 @@
 package pl.wicherska.songs.interfaces;
 
-//todo
-/**
- * This is a Javadoc
- */
+
 public interface UserActionHandler {
+    //todo
+    /**
+     * Implementation should handle one of user action.
+     */
     void handle();
 }

@@ -51,7 +51,7 @@ public class Song {
 
     //todo
     /**
-     * This is a Javadoc
+     * Votes are not included in equals and hashCode methods.
      */
 
     @Override
