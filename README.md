@@ -8,21 +8,42 @@
 - Assertj 3
 
 ## Prerequisites
-JDK installed. Build tool is already contained in project. 
+JDK must be installed. There is no need to install build tool, maven wrapper is already contained in project. 
 
 ## Usage
 Clone this repo and run 
-### Windows
+#### Windows
 ```bat
 compile.bat && run.bat [arguments]
 ```
 
-### Linux
+#### Linux
 ```bash
 ./compile.sh && ./run.sh [arguments]
 ```
 
 Arguments are path or paths to files with songs. Required format: .xml, .csv.
+
+### Format of input file
+
+#### CSV
+```csv
+Title,Author,Album,Category,Votes
+Space Oddity,David Bowie,David Bowie,Rock,7
+```
+
+#### XML
+```xml
+<songs>
+    <song>
+        <title>Space Oddity</title>
+        <author>David Bowie</author>
+        <album>David Bowie</album>
+        <category>Rock</category>
+        <votes>7</votes>
+    </song>
+</songs>
+```
 
 ## Features
 - add new song
