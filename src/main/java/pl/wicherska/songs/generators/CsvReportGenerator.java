@@ -7,14 +7,14 @@ import pl.wicherska.songs.writers.CsvReportWriter;
 import java.util.List;
 
 public class CsvReportGenerator implements ReportGenerator {
-    private final CsvReportWriter csvWriter;
+    private final CsvReportWriter csvReportWriter;
 
-    public CsvReportGenerator(CsvReportWriter csvWriter) {
-        this.csvWriter = csvWriter;
+    public CsvReportGenerator(CsvReportWriter csvReportWriter) {
+        this.csvReportWriter = csvReportWriter;
     }
 
     @Override
     public void generateReport(List<Song> songs) {
-        csvWriter.createReport(songs);
+        csvReportWriter.createReport(songs);
     }
 }

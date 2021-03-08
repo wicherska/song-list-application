@@ -6,28 +6,25 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import pl.wicherska.songs.ApplicationRunner;
 import pl.wicherska.songs.converters.CsvConverter;
+import pl.wicherska.songs.converters.JsonConverter;
 import pl.wicherska.songs.converters.XmlConverter;
-import pl.wicherska.songs.handlers.UserAction;
-import pl.wicherska.songs.generators.ConsoleReportGenerator;
-import pl.wicherska.songs.generators.CsvReportGenerator;
-import pl.wicherska.songs.generators.ReportGeneratorFactory;
-import pl.wicherska.songs.generators.XmlReportGenerator;
-import pl.wicherska.songs.handlers.ReportGeneratorUserActionHandler;
-import pl.wicherska.songs.handlers.ResettingUserActionHandler;
-import pl.wicherska.songs.handlers.SongAddingUserActionHandler;
-import pl.wicherska.songs.handlers.VotingUserActionHandler;
+import pl.wicherska.songs.generators.*;
+import pl.wicherska.songs.handlers.*;
 import pl.wicherska.songs.interfaces.UserActionHandler;
 import pl.wicherska.songs.repositories.AggregatingSongRepository;
 import pl.wicherska.songs.repositories.CsvSongRepository;
+import pl.wicherska.songs.repositories.JsonSongRepository;
 import pl.wicherska.songs.repositories.XmlSongRepository;
 import pl.wicherska.songs.search.SearchEngine;
 import pl.wicherska.songs.services.SongService;
 import pl.wicherska.songs.services.UserSongSelectionService;
 import pl.wicherska.songs.sources.CsvDataSource;
+import pl.wicherska.songs.sources.JsonDataSource;
 import pl.wicherska.songs.sources.XmlDataSource;
 import pl.wicherska.songs.util.ScannerWrapper;
 import pl.wicherska.songs.writers.ConsoleReportWriter;
 import pl.wicherska.songs.writers.CsvReportWriter;
+import pl.wicherska.songs.writers.JsonReportWriter;
 import pl.wicherska.songs.writers.XmlReportWriter;
 
 import java.util.Map;
@@ -44,7 +41,8 @@ class ConfigTest {
         return Stream.of(
                 Arguments.of((Object) new String[]{""}),
                 Arguments.of((Object) new String[]{"test.xm", "test.cs"}),
-                Arguments.of((Object) new String[]{"test3.xml", "test.csv"})
+                Arguments.of((Object) new String[]{"test3.xml", "test.csv"}),
+                Arguments.of((Object) new String[]{"test.jso", "test.csv"})
         );
     }
 
@@ -59,7 +57,7 @@ class ConfigTest {
     @Test
     void shouldReturnTrueWhenPathsAreCorrect() {
         String[] args = new String[]{"src/test/resources/test.csv",
-                "src/test/resources/test.xml"};
+                "src/test/resources/test.xml", "src/test/resources/test.json"};
 
         boolean songFilePathSetCorrectly = Config.getInstance().setInitialSongFilesPaths(args);
 
@@ -140,6 +138,38 @@ class ConfigTest {
     }
 
     @Test
+    void jsonConverterShouldNotBeNull() {
+        JsonConverter jsonConverter = Config.getInstance().jsonConverter();
+
+        assertThat(jsonConverter)
+                .isNotNull();
+    }
+
+    @Test
+    void jsonDataSourceShouldNotBeNull() {
+        JsonDataSource jsonDataSource = Config.getInstance().jsonDataSource();
+
+        assertThat(jsonDataSource)
+                .isNotNull();
+    }
+
+    @Test
+    void jsonSongRepositoryShouldNotBeNull() {
+        JsonSongRepository jsonSongRepository = Config.getInstance().jsonSongRepository();
+
+        assertThat(jsonSongRepository)
+                .isNotNull();
+    }
+
+    @Test
+    void jsonReportWriterShouldNotBeNull() {
+        JsonReportWriter jsonReportWriter = Config.getInstance().jsonReportWriter();
+
+        assertThat(jsonReportWriter)
+                .isNotNull();
+    }
+
+    @Test
     void aggregatingSongRepositoryShouldNotBeNull() {
         AggregatingSongRepository aggregatingSongRepository = Config.getInstance().aggregatingSongRepository();
 
@@ -176,6 +206,14 @@ class ConfigTest {
         XmlReportGenerator xmlReportGenerator = Config.getInstance().xmlReportGenerator();
 
         assertThat(xmlReportGenerator)
+                .isNotNull();
+    }
+
+    @Test
+    void jsonReportGeneratorShouldNotBeNull() {
+        JsonReportGenerator jsonReportGenerator = Config.getInstance().jsonReportGenerator();
+
+        assertThat(jsonReportGenerator)
                 .isNotNull();
     }
 

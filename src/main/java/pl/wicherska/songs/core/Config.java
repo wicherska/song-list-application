@@ -2,24 +2,25 @@ package pl.wicherska.songs.core;
 
 import pl.wicherska.songs.ApplicationRunner;
 import pl.wicherska.songs.converters.CsvConverter;
+import pl.wicherska.songs.converters.JsonConverter;
 import pl.wicherska.songs.converters.XmlConverter;
-import pl.wicherska.songs.generators.ConsoleReportGenerator;
-import pl.wicherska.songs.generators.CsvReportGenerator;
-import pl.wicherska.songs.generators.ReportGeneratorFactory;
-import pl.wicherska.songs.generators.XmlReportGenerator;
+import pl.wicherska.songs.generators.*;
 import pl.wicherska.songs.handlers.*;
 import pl.wicherska.songs.interfaces.UserActionHandler;
 import pl.wicherska.songs.repositories.AggregatingSongRepository;
 import pl.wicherska.songs.repositories.CsvSongRepository;
+import pl.wicherska.songs.repositories.JsonSongRepository;
 import pl.wicherska.songs.repositories.XmlSongRepository;
 import pl.wicherska.songs.search.SearchEngine;
 import pl.wicherska.songs.services.SongService;
 import pl.wicherska.songs.services.UserSongSelectionService;
 import pl.wicherska.songs.sources.CsvDataSource;
+import pl.wicherska.songs.sources.JsonDataSource;
 import pl.wicherska.songs.sources.XmlDataSource;
 import pl.wicherska.songs.util.ScannerWrapper;
 import pl.wicherska.songs.writers.ConsoleReportWriter;
 import pl.wicherska.songs.writers.CsvReportWriter;
+import pl.wicherska.songs.writers.JsonReportWriter;
 import pl.wicherska.songs.writers.XmlReportWriter;
 
 import java.nio.file.Files;
@@ -35,9 +36,11 @@ public class Config {
     private static final Config INSTANCE = new Config();
     private static final String XML_REPORT_FILE_PATH = "report.xml";
     private static final String CSV_REPORT_FILE_PATH = "report.csv";
+    private static final String JSON_REPORT_FILE_PATH = "report.json";
 
     private final List<String> csvPaths = new LinkedList<>();
     private final List<String> xmlPaths = new LinkedList<>();
+    private final List<String> jsonPaths = new LinkedList<>();
 
     private Map<UserAction, UserActionHandler> handlers;
     private CsvConverter csvConverter;
@@ -48,11 +51,16 @@ public class Config {
     private XmlDataSource xmlDataSource;
     private XmlSongRepository xmlSongRepository;
     private XmlReportWriter xmlReportWriter;
+    private JsonConverter jsonConverter;
+    private JsonDataSource jsonDataSource;
+    private JsonSongRepository jsonSongRepository;
+    private JsonReportWriter jsonReportWriter;
     private AggregatingSongRepository aggregatingSongRepository;
     private SearchEngine searchEngine;
     private ConsoleReportWriter consoleReportWriter;
     private CsvReportGenerator csvReportGenerator;
     private XmlReportGenerator xmlReportGenerator;
+    private JsonReportGenerator jsonReportGenerator;
     private ConsoleReportGenerator consoleReportGenerator;
     private ReportGeneratorFactory reportGeneratorFactory;
     private SongAddingUserActionHandler songAddingUserActionHandler;
@@ -77,7 +85,7 @@ public class Config {
             try {
                 verifyFileExist(path);
                 classifyPath(path);
-            } catch (RuntimeException e){
+            } catch (RuntimeException e) {
                 System.out.println("\nFile not found: " + path);
                 return false;
             }
@@ -85,18 +93,20 @@ public class Config {
         return isSetCorrectly();
     }
 
-    private void classifyPath(String path){
+    private void classifyPath(String path) {
         if (path.endsWith(".xml")) {
             xmlPaths.add(path);
         } else if (path.endsWith(".csv")) {
             csvPaths.add(path);
-        } else{
+        } else if (path.endsWith(".json")) {
+            jsonPaths.add(path);
+        } else {
             throw new RuntimeException();
         }
     }
 
     private boolean isSetCorrectly() {
-        if (xmlPaths.size() == 0 && csvPaths.size() == 0) {
+        if (xmlPaths.size() == 0 && csvPaths.size() == 0 && jsonPaths.size() == 0) {
             System.out.println("No correct path found");
             return false;
         } else {
@@ -104,7 +114,7 @@ public class Config {
         }
     }
 
-    private void verifyFileExist(String path){
+    private void verifyFileExist(String path) {
         if (!Files.exists(Paths.get(path))) {
             throw new RuntimeException();
         }
@@ -178,9 +188,37 @@ public class Config {
         return xmlReportWriter;
     }
 
+    public JsonConverter jsonConverter() {
+        if (jsonConverter == null) {
+            jsonConverter = new JsonConverter();
+        }
+        return jsonConverter;
+    }
+
+    public JsonDataSource jsonDataSource() {
+        if (jsonDataSource == null) {
+            jsonDataSource = new JsonDataSource();
+        }
+        return jsonDataSource;
+    }
+
+    JsonSongRepository jsonSongRepository() {
+        if (jsonSongRepository == null) {
+            jsonSongRepository = new JsonSongRepository(jsonConverter(), jsonDataSource(), jsonPaths);
+        }
+        return jsonSongRepository;
+    }
+
+    JsonReportWriter jsonReportWriter() {
+        if (jsonReportWriter == null) {
+            jsonReportWriter = new JsonReportWriter(jsonConverter(), jsonDataSource(), JSON_REPORT_FILE_PATH);
+        }
+        return jsonReportWriter;
+    }
+
     AggregatingSongRepository aggregatingSongRepository() {
         if (aggregatingSongRepository == null) {
-            aggregatingSongRepository = new AggregatingSongRepository(List.of(csvSongRepository(), xmlSongRepository()));
+            aggregatingSongRepository = new AggregatingSongRepository(List.of(csvSongRepository(), xmlSongRepository(), jsonSongRepository()));
         }
         return aggregatingSongRepository;
     }
@@ -214,6 +252,13 @@ public class Config {
         return xmlReportGenerator;
     }
 
+    JsonReportGenerator jsonReportGenerator() {
+        if (jsonReportGenerator == null) {
+            jsonReportGenerator = new JsonReportGenerator(jsonReportWriter());
+        }
+        return jsonReportGenerator;
+    }
+
     ConsoleReportGenerator consoleReportGenerator() {
         if (consoleReportGenerator == null) {
             consoleReportGenerator = new ConsoleReportGenerator(consoleReportWriter());
@@ -223,7 +268,7 @@ public class Config {
 
     ReportGeneratorFactory reportGeneratorFactory() {
         if (reportGeneratorFactory == null) {
-            reportGeneratorFactory = new ReportGeneratorFactory(csvReportGenerator(), xmlReportGenerator(), consoleReportGenerator());
+            reportGeneratorFactory = new ReportGeneratorFactory(csvReportGenerator(), xmlReportGenerator(), jsonReportGenerator(), consoleReportGenerator());
         }
         return reportGeneratorFactory;
     }

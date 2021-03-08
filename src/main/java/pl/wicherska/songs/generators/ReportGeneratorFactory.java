@@ -5,11 +5,13 @@ import pl.wicherska.songs.interfaces.ReportGenerator;
 public class ReportGeneratorFactory {
     private final CsvReportGenerator csvReportGenerator;
     private final XmlReportGenerator xmlReportGenerator;
+    private final JsonReportGenerator jsonReportGenerator;
     private final ConsoleReportGenerator consoleReportGenerator;
 
-    public ReportGeneratorFactory(CsvReportGenerator csvReportGenerator, XmlReportGenerator xmlReportGenerator, ConsoleReportGenerator consoleReportGenerator) {
+    public ReportGeneratorFactory(CsvReportGenerator csvReportGenerator, XmlReportGenerator xmlReportGenerator, JsonReportGenerator jsonReportGenerator, ConsoleReportGenerator consoleReportGenerator) {
         this.csvReportGenerator = csvReportGenerator;
         this.xmlReportGenerator = xmlReportGenerator;
+        this.jsonReportGenerator = jsonReportGenerator;
         this.consoleReportGenerator = consoleReportGenerator;
     }
 
@@ -21,6 +23,8 @@ public class ReportGeneratorFactory {
                 return csvReportGenerator;
             case XML:
                 return xmlReportGenerator;
+            case JSON:
+                return jsonReportGenerator;
             default:
                 throw new IllegalArgumentException("Not supported format: " + format);
         }

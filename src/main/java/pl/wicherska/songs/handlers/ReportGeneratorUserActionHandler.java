@@ -1,9 +1,9 @@
 package pl.wicherska.songs.handlers;
 
-import pl.wicherska.songs.generators.ReportFormat;
-import pl.wicherska.songs.generators.ReportType;
 import pl.wicherska.songs.domain.Song;
+import pl.wicherska.songs.generators.ReportFormat;
 import pl.wicherska.songs.generators.ReportGeneratorFactory;
+import pl.wicherska.songs.generators.ReportType;
 import pl.wicherska.songs.interfaces.ReportGenerator;
 import pl.wicherska.songs.interfaces.UserActionHandler;
 import pl.wicherska.songs.search.SearchEngine;

@@ -1,7 +1,7 @@
 package pl.wicherska.songs.search;
 
-import pl.wicherska.songs.generators.ReportType;
 import pl.wicherska.songs.domain.Song;
+import pl.wicherska.songs.generators.ReportType;
 import pl.wicherska.songs.services.SongService;
 
 import java.util.List;

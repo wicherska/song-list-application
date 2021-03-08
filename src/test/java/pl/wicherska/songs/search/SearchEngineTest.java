@@ -2,8 +2,8 @@ package pl.wicherska.songs.search;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pl.wicherska.songs.generators.ReportType;
 import pl.wicherska.songs.domain.Song;
+import pl.wicherska.songs.generators.ReportType;
 import pl.wicherska.songs.services.SongService;
 
 import java.util.List;

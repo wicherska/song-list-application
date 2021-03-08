@@ -11,11 +11,12 @@ class ReportGeneratorFactoryTest {
     private final ConsoleReportGenerator consoleReportGenerator = mock(ConsoleReportGenerator.class);
     private final CsvReportGenerator csvReportGenerator = mock(CsvReportGenerator.class);
     private final XmlReportGenerator xmlReportGenerator = mock(XmlReportGenerator.class);
+    private final JsonReportGenerator jsonReportGenerator = mock(JsonReportGenerator.class);
     private ReportGeneratorFactory reportGeneratorFactory;
 
     @BeforeEach
     void setUp() {
-        reportGeneratorFactory = new ReportGeneratorFactory(csvReportGenerator, xmlReportGenerator, consoleReportGenerator);
+        reportGeneratorFactory = new ReportGeneratorFactory(csvReportGenerator, xmlReportGenerator, jsonReportGenerator, consoleReportGenerator);
     }
 
     @Test
@@ -44,4 +45,14 @@ class ReportGeneratorFactoryTest {
 
         assertThat(reportGenerator).isSameAs(xmlReportGenerator);
     }
+
+    @Test
+    void shouldReturnJsonReportGenerator() {
+        ReportFormat format = ReportFormat.JSON;
+
+        ReportGenerator reportGenerator = reportGeneratorFactory.forFormat(format);
+
+        assertThat(reportGenerator).isSameAs(jsonReportGenerator);
+    }
+
 }

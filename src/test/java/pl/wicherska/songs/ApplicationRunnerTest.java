@@ -3,8 +3,8 @@ package pl.wicherska.songs;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import pl.wicherska.songs.handlers.UserAction;
 import pl.wicherska.songs.handlers.SongAddingUserActionHandler;
+import pl.wicherska.songs.handlers.UserAction;
 import pl.wicherska.songs.interfaces.UserActionHandler;
 import pl.wicherska.songs.util.ScannerWrapper;
 
