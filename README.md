@@ -22,7 +22,7 @@ compile.bat && run.bat [arguments]
 ./compile.sh && ./run.sh [arguments]
 ```
 
-Arguments are path or paths to files with songs. Required format: .xml, .csv.
+Arguments are path or paths to files with songs. Required format: .xml, .csv, .json.
 
 ### Format of input file
 
@@ -43,6 +43,19 @@ Space Oddity,David Bowie,David Bowie,Rock,7
         <votes>7</votes>
     </song>
 </songs>
+```
+
+#### JSON
+```json
+[
+  {
+    "title": "Space Oddity",
+    "author": "David Bowie",
+    "album": "David Bowie",
+    "category": "Rock",
+    "votes": 7
+  }
+]
 ```
 
 ## Features
